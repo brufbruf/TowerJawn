@@ -147,3 +147,9 @@ win32-build
 *.exe
 *.out
 *.app
+
+!cocos2d/external/
+!cocos2d/external
+!cocos2d/external/**/*
+!cocos2d/external/*.a
+!cocos2d/external/*.lib
