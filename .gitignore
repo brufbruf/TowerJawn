@@ -124,9 +124,9 @@ win32-build
 *.o
 *.obj
 
-# Precompiled Headers
-*.gch
-*.pch
+# # Precompiled Headers
+# *.gch
+# *.pch
 
 # Compiled Dynamic libraries
 *.so
