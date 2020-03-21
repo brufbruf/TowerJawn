@@ -35,6 +35,8 @@ out/
 .project
 .cproject
 
+msvc_build/
+
 # CMake
 *CMakeCache.txt
 *CMakeFiles/

@@ -27,20 +27,24 @@
 #define __GAME_SCENE_H__
 
 #include "cocos2d.h"
+#include "Player.h"
+#include "BasicEnemy.h"
 
 class Game : public cocos2d::Scene
 {
 public:
     static cocos2d::Scene* createScene();
-    cocos2d::Sprite* playerTurret;
+    Player* playerTurret;
+    cocos2d::Sprite* playerTarget;
+    BasicEnemy *enemy;
 
     virtual bool init();
     
     // a selector callback
     void menuCloseCallback(cocos2d::Ref* pSender);
 
-    void onMouseMove(cocos2d::EventMouse *emouse);
-    void rotateTurretTo(float x, float y);
+    void onMouseMove(cocos2d::EventMouse *emouse); 
+    void moveTargetTo(float x, float y);
     
     // implement the "static create()" method manually
     CREATE_FUNC(Game);

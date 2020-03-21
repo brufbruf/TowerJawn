@@ -1,0 +1,1 @@
+cmake --build win32-build --config Debug

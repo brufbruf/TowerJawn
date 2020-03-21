@@ -23,7 +23,6 @@
  ****************************************************************************/
 
 #include "GameScene.h"
-#define PI 3.14159265
 
 USING_NS_CC;
 
@@ -116,7 +115,7 @@ bool Game::init()
     }
 
     // add playerTurret to game screen
-    playerTurret = Sprite::create("playerTurret.png");
+    playerTurret = Player::create();
     if (playerTurret == nullptr)
     {
         problemLoading("'playerTurret.png'");
@@ -125,12 +124,43 @@ bool Game::init()
     {
         // position the playerTurret on the center of the screen
         playerTurret->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
-        playerTurret->setAnchorPoint(Vec2(0.5, 0.5));
 
         // add the playerTurret as a child to this layer
         this->addChild(playerTurret, 0);
 
-        //rotate the playerTurret to follow the cursor
+    }
+
+    // add playerTarget to game screen
+    playerTarget = Sprite::create("playerTarget.png");
+    if (playerTarget == nullptr)
+    {
+        problemLoading("'playerTarget.png'");
+    }
+    else
+    {
+        // position the playerTarget on the center of the screen
+        playerTarget->setPosition(Vec2(-100, -100));
+        playerTarget->setAnchorPoint(Vec2(0.5, 0.5));
+
+        // add the playerTurret as a child to this layer
+        this->addChild(playerTarget, 0);
+
+    }
+
+        // add enemy to game screen
+    enemy = BasicEnemy::create();
+    if (enemy == nullptr)
+    {
+        problemLoading("'enemy.png'");
+    }
+    else
+    {
+        // position the enemy on the center of the screen
+        enemy->setPosition(Vec2(-100, -100));
+
+        // add the playerTurret as a child to this layer
+        this->addChild(enemy, 0);
+
     }
     return true;
 }
@@ -138,23 +168,15 @@ bool Game::init()
 void Game::onMouseMove(cocos2d::EventMouse *emouse) {
      float xPos = emouse->getCursorX();
      float yPos = emouse->getCursorY();
-     this->rotateTurretTo(xPos, yPos);
+     //rotate playerTurret to cursor
+     playerTurret->rotateTo(xPos, yPos);
+     //move reticle to cursor position
+     this->moveTargetTo(xPos, yPos);
 }
 
-void Game::rotateTurretTo(float x, float y) {
-
-    float xDiff = playerTurret->getPositionX() - x;
-    float yDiff = playerTurret->getPositionY() - y;
-    float distance = sqrt(xDiff*xDiff + yDiff*yDiff);
-    float angle = -acos(xDiff/distance)*(180/PI) - 90;
-
-    if(yDiff < 0) {
-        angle *= -1;
-        angle -= 180;
-    } 
-
-    cocos2d::Action *rotateAction = RotateTo::create(0, angle);
-    playerTurret->runAction(rotateAction);
+void Game::moveTargetTo(float x, float y) {
+    cocos2d::Action *moveAction = MoveTo::create(0, Vec2(x, y));
+    playerTarget->runAction(moveAction);
 }
 
 
