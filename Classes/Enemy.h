@@ -15,8 +15,30 @@ public:
 
     //clean up
     virtual void destroy();
+    virtual void setTarget(Entity *target_in);
+    virtual void moveToTarget();
+    virtual void attackTarget();
+    virtual void setStats(int health_in,
+                            int attackSpeed_in, 
+                            int attackDamage_in, 
+                            float movementSpeed_in) {
+        setHealth(health_in);
+        attackSpeed = attackSpeed_in;
+        attackDamage = attackDamage_in;
+        movementSpeed = movementSpeed_in;
+    }
     Enemy(){}
     ~Enemy(){}
+
+    private:
+    Entity *target;
+    int attackSpeed;
+    int attackDamage;
+    float movementSpeed;
+    std::string attackScheduleKey = "";
+
+    virtual void aquireNewTarget();
+    virtual float distanceToTarget();
 };
 
 #endif

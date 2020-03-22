@@ -11,7 +11,8 @@ public:
     virtual bool init() {
       if (!Enemy::initWithFile("enemy.png")) return false;
 
-      this->setAnchorPoint(cocos2d::Vec2(0.5, 0.5));
+      setAnchorPoint(cocos2d::Vec2(0.5, 0.5));
+      setStats(10, 1, 1, 100);
       return true;
     };
 

@@ -69,6 +69,9 @@ list(APPEND GAME_HEADER
      Classes/Player.h
      Classes/Enemy.h
      Classes/BasicEnemy.h
+     Classes/helper.h
+     Classes/Game.h
+     Classes/EnemySpawner.h
      )
 
 if(ANDROID)

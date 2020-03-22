@@ -23,12 +23,14 @@
  ****************************************************************************/
 
 #include "GameScene.h"
+#include "EnemySpawner.h"
+#include "Game.h"
 
 USING_NS_CC;
 
-Scene* Game::createScene()
+Scene* GameScene::createScene()
 {
-    return Game::create();
+    return GameScene::create();
 }
 
 // Print useful error message instead of segfaulting when files are not there.
@@ -39,7 +41,7 @@ static void problemLoading(const char* filename)
 }
 
 // on "init" you need to initialize your instance
-bool Game::init()
+bool GameScene::init()
 {
     //////////////////////////////
     // 1. super init first
@@ -73,7 +75,7 @@ bool Game::init()
     auto closeItem = MenuItemImage::create(
                                            "CloseNormal.png",
                                            "CloseSelected.png",
-                                           CC_CALLBACK_1(Game::menuCloseCallback, this));
+                                           CC_CALLBACK_1(GameScene::menuCloseCallback, this));
 
     if (closeItem == nullptr ||
         closeItem->getContentSize().width <= 0 ||
@@ -147,25 +149,14 @@ bool Game::init()
 
     }
 
+    Game::getInstance().TowerSpawned(playerTurret);
+    enemySpawner.setParentNode((cocos2d::Node *)this);
         // add enemy to game screen
-    enemy = BasicEnemy::create();
-    if (enemy == nullptr)
-    {
-        problemLoading("'enemy.png'");
-    }
-    else
-    {
-        // position the enemy on the center of the screen
-        enemy->setPosition(Vec2(-100, -100));
-
-        // add the playerTurret as a child to this layer
-        this->addChild(enemy, 0);
-
-    }
+    enemySpawner.spawnOne();
     return true;
 }
 
-void Game::onMouseMove(cocos2d::EventMouse *emouse) {
+void GameScene::onMouseMove(cocos2d::EventMouse *emouse) {
      float xPos = emouse->getCursorX();
      float yPos = emouse->getCursorY();
      //rotate playerTurret to cursor
@@ -174,13 +165,13 @@ void Game::onMouseMove(cocos2d::EventMouse *emouse) {
      this->moveTargetTo(xPos, yPos);
 }
 
-void Game::moveTargetTo(float x, float y) {
+void GameScene::moveTargetTo(float x, float y) {
     cocos2d::Action *moveAction = MoveTo::create(0, Vec2(x, y));
     playerTarget->runAction(moveAction);
 }
 
 
-void Game::menuCloseCallback(Ref* pSender)
+void GameScene::menuCloseCallback(Ref* pSender)
 {
     //Close the cocos2d-x game scene and quit the application
     Director::getInstance()->end();

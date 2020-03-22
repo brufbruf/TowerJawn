@@ -28,15 +28,15 @@
 
 #include "cocos2d.h"
 #include "Player.h"
-#include "BasicEnemy.h"
+#include "EnemySpawner.h"
 
-class Game : public cocos2d::Scene
+class GameScene : public cocos2d::Scene
 {
 public:
     static cocos2d::Scene* createScene();
     Player* playerTurret;
     cocos2d::Sprite* playerTarget;
-    BasicEnemy *enemy;
+    EnemySpawner enemySpawner;
 
     virtual bool init();
     
@@ -47,7 +47,7 @@ public:
     void moveTargetTo(float x, float y);
     
     // implement the "static create()" method manually
-    CREATE_FUNC(Game);
+    CREATE_FUNC(GameScene);
 };
 
 #endif // __GAME_SCENE_H__

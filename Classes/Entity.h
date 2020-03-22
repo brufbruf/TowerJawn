@@ -11,6 +11,9 @@ public:
 
     // returns true if alive
     virtual bool takeDamage(int damage);
+    virtual void setHealth(int health_in) {
+        health = health_in;
+    }
 
     //clean up
     virtual void destroy();

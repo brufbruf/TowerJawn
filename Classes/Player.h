@@ -15,6 +15,8 @@ public:
     //clean up
     virtual void destroy();
 
+    bool takeDamage(int damage);
+
 private:
     Player(){}
     ~Player(){}
