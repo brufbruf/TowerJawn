@@ -155,3 +155,5 @@ win32-build
 !cocos2d/external/**/*
 !cocos2d/external/*.a
 !cocos2d/external/*.lib
+
+mac-build/*

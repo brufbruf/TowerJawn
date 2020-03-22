@@ -9,7 +9,7 @@ class BasicEnemy : public Enemy
 public: 
     CREATE_FUNC(BasicEnemy);
     virtual bool init() {
-      if (!Enemy::initWithFile("enemy.png")) return false;
+      if (!Enemy::initWithFile("basicEnemy.png")) return false;
 
       setAnchorPoint(cocos2d::Vec2(0.5, 0.5));
       setStats(10, 1, 1, 100);
