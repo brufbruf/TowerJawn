@@ -67,6 +67,9 @@ bool GameScene::init()
     };
     _eventDispatcher->addEventListenerWithSceneGraphPriority(_mouseListener, this);
 
+    auto backgroundLayer = LayerColor::create(Color4B(255, 255, 255, 255), visibleSize.width, visibleSize.height);
+    this->addChild(backgroundLayer);
+
     /////////////////////////////
     // 2. add a menu item with "X" image, which is clicked to quit the program
     //    you may modify it.
