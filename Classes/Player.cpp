@@ -31,6 +31,7 @@ void Player::destroy() {
   // remove from parent, etc
   // TODO
   // stops all actions and schedulers
+  unschedule("playerDeath");
   removeFromParentAndCleanup(true);
 }
 
@@ -38,7 +39,7 @@ bool Player::takeDamage(int damage) {
   std::cout << "Player taking damage" << std::endl;
   if(!Entity::takeDamage(damage)) {
     // die (but remember that their is a pointer to this) TODO
-    destroy();
+    schedule(CC_CALLBACK_0(Player::destroy, this), 1, "playerDeath");
     return false;
   }
 
