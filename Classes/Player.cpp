@@ -6,8 +6,16 @@
 USING_NS_CC;
 
 bool Player::init() {
-  if (!Entity::initWithFile("playerTurret.png")) return false;
+  if (!Entity::initWithFile("blank.png")) return false;
   setAnchorPoint(Vec2(0.5, 0.5));
+  playerTurret = Sprite::create("playerTurret.png");
+  auto turretBase = Sprite::create("turretBase.png");
+  addChild(turretBase);
+  addChild(playerTurret);
+  turretBase->setPosition(this->getTextureRect().size.width/2, this->getTextureRect().size.height/2);
+  turretBase->setAnchorPoint(Vec2(0.5, 0.5));
+  playerTurret->setPosition(this->getTextureRect().size.width/2, this->getTextureRect().size.height/2);
+  playerTurret->setAnchorPoint(Vec2(0.5, 0.5));
 
   return true;
 }
@@ -24,7 +32,7 @@ void Player::rotateTo(float x, float y) {
   } 
 
   cocos2d::Action *rotateAction = RotateTo::create(0, angle);
-  runAction(rotateAction);
+  playerTurret->runAction(rotateAction);
 }
 
 void Player::destroy() {

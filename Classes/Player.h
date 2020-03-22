@@ -20,6 +20,7 @@ public:
 private:
     Player(){}
     ~Player(){}
+    cocos2d::Sprite *playerTurret;
 };
 
 #endif
