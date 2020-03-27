@@ -13,7 +13,7 @@ class BasicProjectile : public Projectile {
         std::cout << "could not init projectile with file" << std::endl;
         exit(1); 
       }
-      speed = 2;
+      speed = 100;
       callbackKey = Helpers::get_uuid();
       callbackFunc = [](float f) -> void {};
     }
@@ -51,6 +51,7 @@ class BasicProjectile : public Projectile {
 
         float distanceFromTarget = getPosition().distance(_target->getPosition());
         float timeToTarget = distanceFromTarget / speed;
+        std::cout << "distance: " << distanceFromTarget << ", time: " << timeToTarget << std::endl;
         auto action = cocos2d::MoveTo::create(timeToTarget, _target->getPosition());
         runAction(action);
 
