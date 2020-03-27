@@ -64,23 +64,27 @@ void Enemy::moveToTarget() {
 
 void Enemy::attackTarget() {
   if(target == nullptr) {
-    log("this wasn't supposed to happen, target is unassigned");
+    std::cout << "this wasn't supposed to happen, target is unassigned" << std::endl;
     exit(1);
   }
 
   if(!target->takeDamage(attackDamage)) {
     unschedule(attackScheduleKey);
+    aquireNewTarget();
   }
 }
 
 void Enemy::aquireNewTarget() {
-  setTarget(Game::getInstance().EnemyNewTarget());
+  Entity *newTarget = Game::getInstance().EnemyNewTarget();
+  setTarget(newTarget);
+  if(newTarget == nullptr)
+    return;
   moveToTarget();
 }
 
 float Enemy::distanceToTarget() {
   if(target == nullptr) {
-    log("this wasn't supposed to happen, target is unassigned");
+    std::cout << "this wasn't supposed to happen, target is unassigned" << std::endl;
     exit(1);
   }
 

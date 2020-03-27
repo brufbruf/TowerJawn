@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "cocos2d.h"
+#include "Game.h"
 #include <iostream>
 #define PI 3.14159265
 
@@ -48,6 +49,7 @@ bool Player::takeDamage(int damage) {
   if(!Entity::takeDamage(damage)) {
     // die (but remember that their is a pointer to this) TODO
     schedule(CC_CALLBACK_0(Player::destroy, this), 1, "playerDeath");
+    Game::getInstance().TowerKilled(this);
     return false;
   }
 

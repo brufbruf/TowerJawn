@@ -3,6 +3,7 @@
 #include "cocos2d.h"
 #include "Entity.h"
 #include "Enemy.h"
+#include "GameOverScene.h"
 #include <iostream>
 #include <queue>
 #include <vector>
@@ -37,6 +38,11 @@ class Game
         Game(Game const&) = delete;
         void operator=(Game const&) = delete;
         Entity * EnemyNewTarget() {
+          if(towers.empty()) {
+            // Game over
+            GameOver();
+            return nullptr;
+          }
           return towers[0];
         }
         // Enemy * TowerNewTarget() {
@@ -45,6 +51,21 @@ class Game
         void EnemySpawned(Enemy *enemy) {}
         void TowerSpawned(Entity *tower) {
           towers.push_back(tower);
+        }
+
+        void TowerKilled(Entity *tower) {
+          auto it = std::find(towers.begin(), towers.end(), tower);
+          towers.erase(it);
+          if(towers.empty()) {
+            // Game over
+            GameOver();
+          }
+        }
+
+        void GameOver() {
+          std::cout << "Game Over" << std::endl;
+          auto gameOverScene = GameOverScene::create();
+          cocos2d::Director::getInstance()->replaceScene(gameOverScene);
         }
 
         // Note: Scott Meyers mentions in his Effective Modern
