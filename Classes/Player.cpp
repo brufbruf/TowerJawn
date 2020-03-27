@@ -9,12 +9,16 @@ USING_NS_CC;
 bool Player::init() {
   if (!Entity::initWithFile("blank.png")) return false;
   setAnchorPoint(Vec2(0.5, 0.5));
+  //Instantiate sprites for the graphics of Player
   playerTurret = Sprite::create("playerTurret.png");
   auto turretBase = Sprite::create("turretBase.png");
+  //Add graphic sprites as children of PLayer
   addChild(turretBase);
   addChild(playerTurret);
+  //Set postition of turret base to the middle of the game screen
   turretBase->setPosition(this->getTextureRect().size.width/2, this->getTextureRect().size.height/2);
   turretBase->setAnchorPoint(Vec2(0.5, 0.5));
+  //Set postition of player turret to the middle of the game screen
   playerTurret->setPosition(this->getTextureRect().size.width/2, this->getTextureRect().size.height/2);
   playerTurret->setAnchorPoint(Vec2(0.5, 0.5));
 
