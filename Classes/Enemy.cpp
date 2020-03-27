@@ -27,16 +27,32 @@ bool Enemy::initWithFile(const std::string &filename)
     attackSpeed = 1;
     movementSpeed = 1;
     attackDamage = 1;
-    attackScheduleKey = get_uuid();
+    attackScheduleKey = Helpers::get_uuid();
+    _mouseListener = EventListenerMouse::create();
+    _mouseListener->onMouseDown = CC_CALLBACK_1(Enemy::onMouseClick, this);
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(_mouseListener, this);
 
     return true;
+}
+
+void Enemy::onMouseClick(Event *event) {
+  // Mouse is down, take damage from main player.
+  EventMouse* e = (EventMouse*)event;
+  if(!this->getBoundingBox().containsPoint(Vec2(e->getCursorX(), e->getCursorY()))) 
+    return;
+
+  auto mainPlayer = Game::getInstance().GetMainPlayer();
+  if(mainPlayer == nullptr)
+    return;
+
+  mainPlayer->attackEnemy(this);
 }
 
 void Enemy::destroy() {
   // remove from parent, etc
   // TODO
   // stops all actions and schedulers
-  cleanup();
+  removeFromParentAndCleanup(true);
 }
 
 void Enemy::setTarget(Entity *target_in) {

@@ -3,6 +3,7 @@
 
 #include "cocos2d.h"
 #include "Entity.h"
+#include "Enemy.h"
 
 class Player : public Entity
 {
@@ -17,10 +18,15 @@ public:
 
     bool takeDamage(int damage);
 
+    void attackEnemy(Enemy *enemy);
+
 private:
     Player(){}
     ~Player(){}
+    void launchProjectileAtEnemy(Enemy *enemy);
+    cocos2d::Vec2 Player::findTipOfGun();
     cocos2d::Sprite *playerTurret;
+    int attackDamage = 10;
 };
 
 #endif

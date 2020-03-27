@@ -36,4 +36,6 @@ bool Entity::takeDamage(int damage) {
 void Entity::destroy() {
   // remove from parent, etc
   // TODO
+
+  removeFromParentAndCleanup(true);
 }

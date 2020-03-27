@@ -36,9 +36,11 @@ public:
     int attackDamage;
     float movementSpeed;
     std::string attackScheduleKey = "";
+    cocos2d::EventListenerMouse *_mouseListener;
 
     virtual void aquireNewTarget();
     virtual float distanceToTarget();
+    virtual void onMouseClick(cocos2d::Event *event);
 };
 
 #endif

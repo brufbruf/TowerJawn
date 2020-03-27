@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "cocos2d.h"
 #include "Game.h"
+#include "BasicProjectile.h"
 #include <iostream>
 #define PI 3.14159265
 
@@ -58,4 +59,34 @@ bool Player::takeDamage(int damage) {
   }
 
   return true;
+}
+
+void Player::attackEnemy(Enemy *enemy) {
+  // send a projectile, also make enemy take damage
+  launchProjectileAtEnemy(enemy);
+}
+
+void Player::launchProjectileAtEnemy(Enemy *enemy) {
+  std::cout << "launching projectile" << std::endl;
+  auto projectile = BasicProjectile::create();
+  projectile->setPosition(convertToWorldSpace(findTipOfGun()));
+  projectile->setRotation(playerTurret->getRotation());
+  getParent()->addChild(projectile);
+  auto schedulerFunc = [&](float f) -> void {
+    if(!((Entity *)enemy)->takeDamage(attackDamage)) {
+      enemy->destroy();
+    }
+  };
+  projectile->fireTowardsEntity(enemy, schedulerFunc);
+}
+
+Vec2 Player::findTipOfGun() {
+  float rotation = playerTurret->getRotation();
+  float hheight = playerTurret->getBoundingBox().size.height/2;
+  float hwidth = playerTurret->getBoundingBox().size.width/2;
+
+  float xFromCenter = hwidth*cos(rotation);
+  float yFromCenter = hheight*sin(rotation);
+
+  return Vec2(xFromCenter - hwidth, yFromCenter - hheight);
 }

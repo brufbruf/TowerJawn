@@ -134,6 +134,7 @@ bool GameScene::init()
         this->addChild(playerTurret, 0);
 
     }
+    Game::getInstance().SetMainPlayer(playerTurret);
 
     // add playerTarget to game screen
     playerTarget = Sprite::create("playerTarget.png");

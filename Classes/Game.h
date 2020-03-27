@@ -3,6 +3,7 @@
 #include "cocos2d.h"
 #include "Entity.h"
 #include "Enemy.h"
+#include "Player.h"
 #include "GameOverScene.h"
 #include <iostream>
 #include <queue>
@@ -22,6 +23,7 @@ class Game
     private:
         Game() {}                    // Constructor? (the {} brackets) are needed here.
         std::vector<Entity*> towers; 
+        Player *mainPlayer;
         // C++ 03
         // ========
         // Don't forget to declare these two. You want to make sure they
@@ -60,6 +62,14 @@ class Game
             // Game over
             GameOver();
           }
+        }
+
+        void SetMainPlayer(Player *mainPlayer_in) {
+          mainPlayer = mainPlayer_in;
+        }
+
+        Player *GetMainPlayer() {
+          return mainPlayer;
         }
 
         void GameOver() {
