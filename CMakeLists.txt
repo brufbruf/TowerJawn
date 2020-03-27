@@ -72,6 +72,8 @@ list(APPEND GAME_HEADER
      Classes/helper.h
      Classes/Game.h
      Classes/EnemySpawner.h
+     Classes/Projectile.h
+     Classes/BasicProjectile.h
      )
 
 if(ANDROID)
